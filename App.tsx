@@ -97,25 +97,19 @@ const App: React.FC = () => {
         <StatisticsSection stats={stats} />
       )}
       
-      <Services />
-
-      <ViolationsMap />
-      
-      <SuccessStoriesSection stories={stories} />
-      
-      <NewsSection />
-      
-      <PriceList />
-      
-      <div className="py-12 md:py-20 bg-light">
-        <ReportForm />
+      <div className="space-y-4 md:space-y-0">
+        <Services />
+        <ViolationsMap />
+        <SuccessStoriesSection stories={stories} />
+        <NewsSection />
+        <PriceList />
+        <div className="py-8 md:py-16 bg-light">
+          <ReportForm />
+        </div>
+        <TestimonialsSection testimonials={testimonials} />
+        <Gallery />
+        <Publications />
       </div>
-
-      <TestimonialsSection testimonials={testimonials} />
-      
-      <Gallery />
-      
-      <Publications />
     </PageWrapper>
   );
 };

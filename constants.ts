@@ -270,6 +270,10 @@ export const INITIAL_STATS: SiteStatistics = {
 };
 
 export const INITIAL_SETTINGS: SiteSettings = {
+  brandNameAr: "حماية المستهلك - تعز",
+  brandNameEn: "CPA - Taiz",
+  primaryColor: "#0F4C75",
+  accentColor: "#F39C12",
   showStatsOnHome: true,
   animations: { type: 'slide', speed: 0.6, enabled: true },
   logoUrl: DEFAULT_LOGO,
