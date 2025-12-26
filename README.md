@@ -1,44 +1,48 @@
-بالطبع، إليك ملف README ثنائي اللغة (عربي-إنجليزي) احترافي ومفصل جداً يشرح خطوات التثبيت والإعداد بشكل كامل، مناسب للنشر كوثيقة رسمية للمشروع على بيئة Ubuntu باستخدام Hestia Control Panel.
+بالطبع، إليك ملف README.md منسق بشكل احترافي مناسب لمستودع GitHub، يحتوي على شرح مفصل ثنائي اللغة (عربي وإنجليزي) لخطوات التثبيت والإعداد، مع تقسيم واضح للأقسام والكتابة بصيغة تقنية رسمية:
+
+````markdown
+# 🛡️ Consumer Protection System - Taiz (CPA-Taiz)  
+# نظام حماية المستهلك - تعز (CPA-Taiz)
 
 ---
 
-````
-# 🛡️ Consumer Protection System - Taiz (CPA-Taiz)
-# نظام حماية المستهلك - تعز (CPA-Taiz)
+![Release](https://img.shields.io/badge/Release-v2.6.0--Stable-emerald?style=for-the-badge)  
+![Target](https://img.shields.io/badge/Target-Taiz_Markets-navy?style=for-the-badge)  
+![Coverage](https://img.shields.io/badge/Coverage-100%25_Responsive-blueviolet?style=for-the-badge)
 
 ---
 
 ## English Version
 
-### Project Overview
-Consumer Protection System - Taiz (CPA-Taiz) is a full-stack platform designed to empower consumers in Taiz Governorate through smart monitoring tools, updated news, and dynamic price listings.
+### Project Overview  
+Consumer Protection System - Taiz (CPA-Taiz) is a comprehensive full-stack platform designed to empower consumers in Taiz Governorate by providing smart monitoring tools, updated news, and dynamic price listings.
 
-### 🏗️ System Architecture
-- Frontend: React 19 + Tailwind CSS + Framer Motion
-- Backend: Node.js + Express.js
-- Database: MongoDB (NoSQL)
-- Security: JWT (JSON Web Tokens) + Bcrypt for password hashing
+### 🏗️ System Architecture  
+- **Frontend:** React 19 + Tailwind CSS + Framer Motion  
+- **Backend:** Node.js + Express.js  
+- **Database:** MongoDB (NoSQL)  
+- **Security:** JWT (JSON Web Tokens) + Bcrypt for password hashing  
 
-### 🛠️ Prerequisites & Setup
-- Node.js: Version 18 or higher
-- MongoDB: Version 6.0 or higher (local installation or MongoDB Atlas)
-- SSL Certificate: Mandatory in production for camera barcode scanning and geolocation features
+### 🛠️ Prerequisites & Setup  
+- Node.js (v18+)  
+- MongoDB (v6.0+) - Local or MongoDB Atlas  
+- SSL Certificate (mandatory for barcode scanning and geolocation in production)  
 
-### 🚀 Backend Setup
+### 🚀 Backend Setup  
 
-1. Create backend directory and initialize the project:
+1. Create backend folder and initialize the project:  
    ```bash
    mkdir backend && cd backend
    npm init -y
 ````
 
-2. Install necessary dependencies:
+2. Install dependencies:
 
    ```bash
    npm install express mongoose dotenv cors jsonwebtoken bcryptjs multer
    ```
 
-3. Create `.env` file inside `/backend` folder with the following content:
+3. Create `.env` file in `/backend` directory:
 
    ```
    PORT=5000
@@ -47,9 +51,9 @@ Consumer Protection System - Taiz (CPA-Taiz) is a full-stack platform designed t
    NODE_ENV=production
    ```
 
-4. Define Mongoose models for Users, Prices, News, and Violations as per project needs.
+4. Define Mongoose models for Users, Prices, News, and Violations.
 
-5. Seed an initial admin user (run once):
+5. Seed initial admin user (run once):
 
    ```js
    // backend/scripts/seed.js
@@ -74,14 +78,14 @@ Consumer Protection System - Taiz (CPA-Taiz) is a full-stack platform designed t
 
 ---
 
-### 🌐 Production Deployment on Ubuntu with Hestia Control Panel v1.9.4
+### 🌐 Production Deployment on Ubuntu with Hestia Control Panel (v1.9.4)
 
-1. Upload frontend build (e.g., `dist`) and backend files to:
+1. Upload frontend build (`dist/`) and backend files to:
 
    * Frontend: `/home/cpa-ye/web/cpa-ye.org/public_html`
    * Backend: `/home/cpa-ye/web/cpa-ye.org/backend`
 
-2. Set proper file permissions:
+2. Set file permissions:
 
    ```bash
    sudo chown -R www-data:www-data /home/cpa-ye/web/cpa-ye.org/
@@ -91,10 +95,10 @@ Consumer Protection System - Taiz (CPA-Taiz) is a full-stack platform designed t
 
 3. Configure domain and SSL via Hestia:
 
-   * Ensure domain points to `/public_html`
-   * Enable SSL certificate with Let’s Encrypt
+   * Point domain to `/public_html` directory
+   * Enable SSL with Let’s Encrypt
 
-4. Configure Nginx or Apache rewrite rules to support React SPA routing:
+4. Configure Nginx/Apache rewrite rules for React SPA routing:
 
    ```nginx
    location / {
@@ -104,7 +108,7 @@ Consumer Protection System - Taiz (CPA-Taiz) is a full-stack platform designed t
    }
    ```
 
-5. Run backend using PM2 process manager:
+5. Run backend with PM2:
 
    ```bash
    npm install -g pm2
@@ -113,7 +117,7 @@ Consumer Protection System - Taiz (CPA-Taiz) is a full-stack platform designed t
    pm2 save
    ```
 
-6. Verify website access on:
+6. Verify site access:
 
    * [http://cpa-ye.org](http://cpa-ye.org)
    * [https://cpa-ye.org](https://cpa-ye.org) (SSL enabled)
@@ -122,18 +126,18 @@ Consumer Protection System - Taiz (CPA-Taiz) is a full-stack platform designed t
 
 ### 🔒 Security Notes
 
-* Browsers require HTTPS for camera and geolocation APIs to work.
-* CORS policy should accept requests only from the frontend domain.
-* Multer is used for file uploads; ensure upload directory has write permissions.
+* HTTPS is mandatory for camera and geolocation API access.
+* CORS policy configured to accept requests only from the frontend domain.
+* Multer handles file uploads; ensure upload directory has write permissions.
 
 ---
 
 ### ⚙️ Admin Control Panel Features
 
 * Manage geo-located violation reports with status updates.
-* Rich text editor for news and awareness campaigns.
+* Rich text news editor for awareness campaigns.
 * Dynamic price lists for official commodities.
-* Real-time dashboard statistics on reports and violations.
+* Real-time dashboard statistics.
 
 ---
 
@@ -145,7 +149,7 @@ Consumer Protection System - Taiz (CPA-Taiz) is a full-stack platform designed t
 
 ---
 
-### © 2026 Consumer Protection Association - Taiz. All rights reserved.
+© 2026 Consumer Protection Association - Taiz. All rights reserved.
 
 ---
 
@@ -164,9 +168,9 @@ Consumer Protection System - Taiz (CPA-Taiz) is a full-stack platform designed t
 
 ### 🛠️ المتطلبات الأساسية والإعداد
 
-* Node.js: الإصدار 18 أو أحدث
-* MongoDB: الإصدار 6.0 أو أحدث (محلي أو عبر MongoDB Atlas)
-* شهادة SSL: ضرورية في بيئة الإنتاج لعمل ماسح الباركود والكشف الجغرافي
+* Node.js الإصدار 18 أو أحدث
+* MongoDB الإصدار 6.0 أو أحدث (محلي أو عبر MongoDB Atlas)
+* شهادة SSL ضرورية في بيئة الإنتاج لعمل ماسح الباركود والكشف الجغرافي
 
 ### 🚀 إعداد الخادم الخلفي
 
@@ -183,7 +187,7 @@ Consumer Protection System - Taiz (CPA-Taiz) is a full-stack platform designed t
    npm install express mongoose dotenv cors jsonwebtoken bcryptjs multer
    ```
 
-3. إنشاء ملف `.env` داخل مجلد `/backend` بالمحتوى التالي:
+3. إنشاء ملف `.env` داخل مجلد `/backend`:
 
    ```
    PORT=5000
@@ -219,9 +223,9 @@ Consumer Protection System - Taiz (CPA-Taiz) is a full-stack platform designed t
 
 ---
 
-### 🌐 النشر في بيئة الإنتاج على أوبونتو مع لوحة تحكم Hestia الإصدار 1.9.4
+### 🌐 النشر في بيئة الإنتاج على أوبونتو مع لوحة تحكم Hestia (الإصدار 1.9.4)
 
-1. رفع ملفات الواجهة الأمامية (مثل مجلد `dist`) وملفات الخادم الخلفي إلى:
+1. رفع ملفات الواجهة الأمامية (`dist/`) وملفات الخادم الخلفي إلى:
 
    * الواجهة الأمامية: `/home/cpa-ye/web/cpa-ye.org/public_html`
    * الخادم الخلفي: `/home/cpa-ye/web/cpa-ye.org/backend`
@@ -236,7 +240,7 @@ Consumer Protection System - Taiz (CPA-Taiz) is a full-stack platform designed t
 
 3. إعداد الدومين وشهادة SSL عبر Hestia:
 
-   * تأكد أن الدومين يشير إلى مجلد `/public_html`
+   * تأكد من توجيه الدومين إلى مجلد `/public_html`
    * تفعيل شهادة SSL المجانية من Let's Encrypt
 
 4. تكوين قواعد إعادة التوجيه لـ Nginx أو Apache لدعم تطبيق React SPA:
@@ -249,7 +253,7 @@ Consumer Protection System - Taiz (CPA-Taiz) is a full-stack platform designed t
    }
    ```
 
-5. تشغيل الخادم الخلفي باستخدام مدير العمليات PM2:
+5. تشغيل الخادم الخلفي باستخدام PM2:
 
    ```bash
    npm install -g pm2
@@ -267,15 +271,15 @@ Consumer Protection System - Taiz (CPA-Taiz) is a full-stack platform designed t
 
 ### 🔒 ملاحظات الأمان
 
-* تتطلب المتصفحات اتصال HTTPS ليعمل الكاميرا والكشف الجغرافي.
-* سياسة CORS يجب أن تسمح فقط لطلبات من الدومين الرسمي للواجهة الأمامية.
-* Multer يستخدم لرفع الملفات؛ تأكد من أن مجلد الرفع لديه صلاحيات الكتابة.
+* يتطلب المتصفح اتصال HTTPS لتفعيل الكاميرا وميزة الكشف الجغرافي.
+* سياسة CORS يجب أن تسمح فقط للطلبات من الدومين الرسمي للواجهة الأمامية.
+* Multer تُستخدم لرفع الملفات؛ تأكد من صلاحيات مجلد التحميل.
 
 ---
 
 ### ⚙️ ميزات لوحة التحكم الإدارية
 
-* إدارة البلاغات الجغرافية مع تحديث حالة كل بلاغ.
+* إدارة البلاغات الجغرافية مع تحديث الحالة.
 * محرر نصوص غني لإدارة الأخبار وحملات التوعية.
 * قوائم أسعار ديناميكية للسلع الرسمية.
 * لوحة إحصائيات مباشرة تعرض البلاغات والمخالفات.
@@ -296,5 +300,6 @@ Consumer Protection System - Taiz (CPA-Taiz) is a full-stack platform designed t
 
 ---
 
-هل تريد أن أحول هذا النص إلى ملف PDF أو ملف نصي (TXT) يمكنك تحميله؟
+يمكنك نسخ هذا الملف كما هو ووضعه مباشرة في ملف `README.md` في مستودع GitHub الخاص بك ليكون دليلاً مرجعياً شاملاً ومفصلاً.  
+هل ترغب في أن أساعدك بتحويله إلى ملف جاهز للتحميل؟
 ```
