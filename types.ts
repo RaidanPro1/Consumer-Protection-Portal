@@ -131,7 +131,8 @@ export interface Publication {
 
 export interface ServiceItem {
   id: number;
-  icon: 'search' | 'balance' | 'bullhorn';
+  icon: string; // Can be a Lucide icon name or a URL/Base64
+  isCustomIcon?: boolean;
   titleAr: string;
   titleEn: string;
   descAr: string;
@@ -160,4 +161,24 @@ export interface PrivacyPolicyContent {
   titleEn: string;
   contentAr: string;
   contentEn: string;
+}
+
+export interface AuditLog {
+  id: number;
+  action: string;
+  user: string;
+  details: string;
+  timestamp: string;
+}
+
+export interface Violation {
+  id: number;
+  lat: number;
+  lng: number;
+  typeAr: string;
+  typeEn: string;
+  date: string;
+  descriptionAr: string;
+  descriptionEn: string;
+  status: 'pending' | 'verified' | 'resolved';
 }

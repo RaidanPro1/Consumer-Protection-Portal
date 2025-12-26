@@ -21,6 +21,7 @@ import { Donations } from './components/Home/Donations';
 import { StatisticsSection } from './components/Home/StatisticsSection';
 import { SuccessStoriesSection } from './components/Home/SuccessStoriesSection';
 import { TestimonialsSection } from './components/Home/TestimonialsSection';
+import { ViolationsMap } from './components/Home/ViolationsMap';
 import { 
   JOB_LISTINGS, 
   VOLUNTEER_DATA, 
@@ -50,7 +51,6 @@ const App: React.FC = () => {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  // Update site icon/favicon to the custom logo
   useEffect(() => {
     let link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
     if (!link) {
@@ -73,7 +73,7 @@ const App: React.FC = () => {
     <LanguageProvider>
       <div className="min-h-screen flex flex-col font-cairo overflow-x-hidden">
         <Navbar logoUrl={settings.logoUrl} />
-        <main className="flex-grow space-y-0">
+        <main className="flex-grow">
           {children}
         </main>
         <Footer logoUrl={settings.logoUrl} />
@@ -93,44 +93,29 @@ const App: React.FC = () => {
       <NewsTicker />
       <HeroSlider />
       
-      {/* Increased spacing between sections for a more professional look */}
-      <div className="py-12 md:py-20">
+      {settings.showStatsOnHome && (
         <StatisticsSection stats={stats} />
-      </div>
+      )}
       
-      <div className="py-12 md:py-20">
-        <Services />
-      </div>
+      <Services />
+
+      <ViolationsMap />
       
-      <div className="py-12 md:py-20 bg-gray-50/50">
-        <SuccessStoriesSection stories={stories} />
-      </div>
+      <SuccessStoriesSection stories={stories} />
       
-      <div className="py-12 md:py-20">
-        <NewsSection />
-      </div>
+      <NewsSection />
       
-      <div className="py-12 md:py-20 bg-white">
-        <PriceList />
-      </div>
+      <PriceList />
       
-      <div className="py-12 md:py-20 relative">
-        <div className="absolute top-0 left-0 w-full h-1/2 bg-white" />
-        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gray-50/50" />
+      <div className="py-12 md:py-20 bg-light">
         <ReportForm />
       </div>
 
-      <div className="py-12 md:py-20">
-        <TestimonialsSection testimonials={testimonials} />
-      </div>
+      <TestimonialsSection testimonials={testimonials} />
       
-      <div className="py-12 md:py-20 bg-white">
-        <Gallery />
-      </div>
+      <Gallery />
       
-      <div className="py-12 md:py-20">
-        <Publications />
-      </div>
+      <Publications />
     </PageWrapper>
   );
 };

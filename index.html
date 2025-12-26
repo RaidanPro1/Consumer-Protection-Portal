@@ -42,9 +42,13 @@
       }
     </script>
     <style>
+      * {
+        font-family: 'Cairo', sans-serif !important;
+      }
       body {
         font-family: 'Cairo', sans-serif;
         scroll-behavior: smooth;
+        overflow-x: hidden;
       }
       /* Custom scrollbar for Webkit */
       ::-webkit-scrollbar {
@@ -63,16 +67,19 @@
       #reader__scan_region video {
         border-radius: 20px;
         box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        object-fit: cover !important;
       }
       .glass-nav {
         background: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
       }
-      .gradient-text {
-        background: linear-gradient(135deg, #0F4C75 0%, #3282B8 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+      .ken-burns {
+        animation: kenburns 20s infinite alternate;
+      }
+      @keyframes kenburns {
+        from { transform: scale(1); }
+        to { transform: scale(1.1); }
       }
     </style>
   <script type="importmap">
@@ -88,7 +95,7 @@
 }
 </script>
 </head>
-  <body class="bg-light text-dark selection:bg-primary/20">
+  <body class="bg-light text-dark selection:bg-primary/20 font-cairo">
     <div id="root"></div>
   </body>
 </html>

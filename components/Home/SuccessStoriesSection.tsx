@@ -11,9 +11,10 @@ interface SuccessStoriesSectionProps {
 
 export const SuccessStoriesSection: React.FC<SuccessStoriesSectionProps> = ({ stories }) => {
   const { t, language } = useLanguage();
-  
-  // Use any to bypass motion type issues in this environment
   const motionAny = motion as any;
+
+  // Specification: fixed 3-4 blocks
+  const displayStories = stories.slice(0, 4);
 
   return (
     <section className="py-20 bg-light">
@@ -29,8 +30,7 @@ export const SuccessStoriesSection: React.FC<SuccessStoriesSectionProps> = ({ st
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {stories.map((story, i) => (
-            /* Fix: Using motionAny.div */
+          {displayStories.map((story, i) => (
             <motionAny.div
               key={story.id}
               initial={{ opacity: 0, y: 30 }}

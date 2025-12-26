@@ -11,8 +11,6 @@ interface JobsProps {
 
 export const Jobs: React.FC<JobsProps> = ({ jobs }) => {
   const { t, language } = useLanguage();
-  
-  // Use any to bypass motion type issues in this environment
   const motionAny = motion as any;
 
   return (
@@ -25,7 +23,6 @@ export const Jobs: React.FC<JobsProps> = ({ jobs }) => {
       <div className="container mx-auto py-20 px-6 md:px-16">
         <div className="max-w-4xl mx-auto space-y-6">
           {jobs.map((job) => (
-            /* Fix: Using motionAny.div */
             <motionAny.div
               key={job.id}
               initial={{ opacity: 0, x: -20 }}

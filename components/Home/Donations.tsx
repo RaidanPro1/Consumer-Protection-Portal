@@ -11,8 +11,6 @@ interface DonationsProps {
 
 export const Donations: React.FC<DonationsProps> = ({ methods }) => {
   const { t, language } = useLanguage();
-  
-  // Use any to bypass motion type issues in this environment
   const motionAny = motion as any;
 
   return (
@@ -31,7 +29,6 @@ export const Donations: React.FC<DonationsProps> = ({ methods }) => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {methods.map((method) => (
-              /* Fix: Using motionAny.div */
               <motionAny.div
                 key={method.id}
                 whileHover={{ y: -5 }}

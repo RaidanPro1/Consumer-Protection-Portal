@@ -22,9 +22,7 @@ export const AboutUs: React.FC = () => {
       {/* Hero Header */}
       <div className="bg-primary py-20 px-6 md:px-16 text-white text-center">
         <div className="container mx-auto">
-          {/* Fix: Using motionAny.h1 */}
           <motionAny.h1 initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="text-4xl md:text-6xl font-black mb-6">{t('about')}</motionAny.h1>
-          {/* Fix: Using motionAny.p */}
           <motionAny.p initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }} className="text-xl opacity-80 max-w-2xl mx-auto">تعرف على أهدافنا وتطلعاتنا في جمعية حماية المستهلك بمحافظة تعز.</motionAny.p>
         </div>
       </div>
@@ -32,7 +30,6 @@ export const AboutUs: React.FC = () => {
       <div className="container mx-auto py-20 px-6 md:px-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {cards.map((card, i) => (
-            /* Fix: Using motionAny.div */
             <motionAny.div 
               key={i}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -50,7 +47,6 @@ export const AboutUs: React.FC = () => {
           ))}
         </div>
 
-        {/* Fix: Using motionAny.div */}
         <motionAny.div 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -68,7 +64,7 @@ export const AboutUs: React.FC = () => {
             <p className="text-gray-600 leading-relaxed text-lg">
               نحن نؤمن بأن المستهلك المطلع هو مستهلك محمي، ولذلك نكرس جهودنا للتوعية والرقابة والعمل القانوني لضمان حقوق الجميع.
             </p>
-          </motionAny.div>
+          </div>
         </motionAny.div>
       </div>
     </div>

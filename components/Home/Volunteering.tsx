@@ -11,8 +11,6 @@ interface VolunteeringProps {
 
 export const Volunteering: React.FC<VolunteeringProps> = ({ content }) => {
   const { t, language } = useLanguage();
-  
-  // Use any to bypass motion type issues in this environment
   const motionAny = motion as any;
 
   return (
@@ -24,9 +22,8 @@ export const Volunteering: React.FC<VolunteeringProps> = ({ content }) => {
 
       <div className="container mx-auto py-20 px-6 md:px-16">
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-          {/* Fix: Using motionAny.div */}
           <motionAny.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}>
-            <img src="https://picsum.photos/seed/vol/800/800" className="rounded-3xl shadow-2xl" alt="Volunteer"/>
+            <img src="https://images.unsplash.com/photo-1559027615-cd2671c15f81?q=80&w=2069&auto=format&fit=crop" className="rounded-3xl shadow-2xl" alt="Volunteer"/>
           </motionAny.div>
           
           <div className="space-y-8">

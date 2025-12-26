@@ -5,7 +5,7 @@ import { SERVICES_DATA } from '../../constants';
 import { Search, Scale, Megaphone, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const iconMap = {
+const iconMap: any = {
   search: Search,
   balance: Scale,
   bullhorn: Megaphone
@@ -27,7 +27,7 @@ export const Services: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div className="max-w-2xl">
             <h2 className="text-4xl md:text-5xl font-black text-primary mb-6 leading-tight">
-              نعمل بكل طاقتنا <span className="text-accent">لحمايتك</span>
+              {t('services_title')}
             </h2>
             <p className="text-gray-500 text-xl font-medium leading-relaxed">
               نقدم مجموعة متكاملة من الخدمات التي تهدف إلى تمكين المستهلك وضبط التجاوزات في السوق المحلي بمحافظة تعز.
@@ -41,9 +41,10 @@ export const Services: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
           {SERVICES_DATA.map((service, index) => {
-            const Icon = iconMap[service.icon];
+            const IconComponent = iconMap[service.icon];
+            const isCustom = service.isCustomIcon || (service.icon.startsWith('http') || service.icon.startsWith('data:'));
+
             return (
-              /* Fix: Using motionAny.div */
               <motionAny.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
@@ -53,8 +54,20 @@ export const Services: React.FC = () => {
                 className="bg-white p-10 rounded-[2.5rem] shadow-soft hover:shadow-elegant border border-gray-100 hover:border-primary/10 transition-all duration-500 group relative"
               >
                 <div className="flex justify-start mb-8">
-                  <div className="p-5 bg-blue-50/50 rounded-2xl group-hover:bg-primary transition-all duration-500 transform group-hover:-rotate-6 group-hover:scale-110">
-                    <Icon className="w-10 h-10 text-primary group-hover:text-white transition-colors" strokeWidth={2} />
+                  <div className="p-5 bg-blue-50/50 rounded-2xl group-hover:bg-primary transition-all duration-500 transform group-hover:-rotate-6 group-hover:scale-110 flex items-center justify-center min-w-[80px] min-h-[80px]">
+                    {isCustom ? (
+                      <img 
+                        src={service.icon} 
+                        alt={service.titleEn} 
+                        className="w-12 h-12 object-contain group-hover:brightness-0 group-hover:invert transition-all" 
+                      />
+                    ) : (
+                      IconComponent ? (
+                        <IconComponent className="w-10 h-10 text-primary group-hover:text-white transition-colors" strokeWidth={2} />
+                      ) : (
+                        <Search className="w-10 h-10 text-primary group-hover:text-white transition-colors" strokeWidth={2} />
+                      )
+                    )}
                   </div>
                 </div>
                 
@@ -71,7 +84,6 @@ export const Services: React.FC = () => {
                    <ArrowLeft className={`w-5 h-5 ${dir === 'ltr' ? 'rotate-180' : ''}`} />
                 </div>
                 
-                {/* Decorative index */}
                 <span className="absolute top-8 end-8 text-6xl font-black text-gray-50 select-none group-hover:text-primary/5 transition-colors">
                   0{index + 1}
                 </span>

@@ -11,9 +11,10 @@ interface TestimonialsSectionProps {
 
 export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ testimonials }) => {
   const { t, language } = useLanguage();
-  
-  // Use any to bypass motion type issues in this environment
   const motionAny = motion as any;
+
+  // Specification: fixed 3-4 blocks
+  const displayTests = testimonials.slice(0, 4);
 
   return (
     <section className="py-24 bg-white relative overflow-hidden">
@@ -30,8 +31,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ testim
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          {testimonials.map((test, i) => (
-            /* Fix: Using motionAny.div */
+          {displayTests.map((test, i) => (
             <motionAny.div
               key={test.id}
               initial={{ opacity: 0, scale: 0.95 }}
