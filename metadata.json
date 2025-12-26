@@ -1,0 +1,8 @@
+{
+  "name": "Consumer Protection Portal",
+  "description": "A bilingual (Arabic/English) web portal for the Consumer Protection Association in Taiz, featuring news, price guides, and violation reporting.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera"
+  ]
+}
