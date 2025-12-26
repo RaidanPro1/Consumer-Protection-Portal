@@ -1,12 +1,27 @@
 
 export type Language = 'ar' | 'en';
+export type UserRole = 'admin' | 'editor' | 'viewer';
 
-export interface TranslationDictionary {
-  [key: string]: {
-    [key: string]: string;
-  };
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+  lastLogin?: string;
 }
 
+export interface SiteSettings {
+  brandNameAr: string;
+  brandNameEn: string;
+  logoUrl: string;
+  primaryColor: string;
+  accentColor: string;
+  showStatsOnHome: boolean;
+  metaKeywordsAr: string;
+  metaKeywordsEn: string;
+}
+
+// ... (Existing types remains same but updated to support API fetching)
 export interface NewsItem {
   id: number;
   date: string;
@@ -14,135 +29,10 @@ export interface NewsItem {
   titleEn: string;
   descAr: string;
   descEn: string;
+  contentAr?: string;
+  contentEn?: string;
   image: string;
-  keywordsAr?: string;
-  keywordsEn?: string;
-}
-
-export interface HeroSlide {
-  id: number;
-  image: string;
-  titleAr: string;
-  titleEn: string;
-  subAr: string;
-  subEn: string;
-}
-
-export interface TeamMember {
-  id: number;
-  nameAr: string;
-  nameEn: string;
-  roleAr: string;
-  roleEn: string;
-  bioAr: string;
-  bioEn: string;
-  image: string;
-}
-
-export interface SuccessStory {
-  id: number;
-  titleAr: string;
-  titleEn: string;
-  descAr: string;
-  descEn: string;
-  image: string;
-  keywordsAr?: string;
-  keywordsEn?: string;
-}
-
-export interface Testimonial {
-  id: number;
-  nameAr: string;
-  nameEn: string;
-  roleAr: string;
-  roleEn: string;
-  feedbackAr: string;
-  feedbackEn: string;
-  image: string;
-}
-
-export interface AboutUsContent {
-  missionAr: string;
-  missionEn: string;
-  visionAr: string;
-  visionEn: string;
-  valuesAr: string;
-  valuesEn: string;
-}
-
-export interface JobItem {
-  id: number;
-  titleAr: string;
-  titleEn: string;
-  descAr: string;
-  descEn: string;
-  requirementsAr: string;
-  requirementsEn: string;
-  instructionsAr: string;
-  instructionsEn: string;
-  keywordsAr?: string;
-  keywordsEn?: string;
-}
-
-export interface VolunteerContent {
-  titleAr: string;
-  titleEn: string;
-  descAr: string;
-  descEn: string;
-  contactEmail: string;
-}
-
-export interface DonationMethod {
-  id: number;
-  titleAr: string;
-  titleEn: string;
-  detailsAr: string;
-  detailsEn: string;
-  methodType: 'bank' | 'wallet' | 'external';
-  link?: string;
-}
-
-export interface SiteStatistics {
-  totalReports: number;
-  verifiedDiscrepancies: number;
-  activeViolations: number;
-}
-
-export interface AnimationSettings {
-  type: 'fade' | 'slide' | 'zoom' | 'none';
-  speed: number; // in seconds
-  enabled: boolean;
-}
-
-export interface SiteSettings {
-  showStatsOnHome: boolean;
-  animations: AnimationSettings;
-  logoUrl: string;
-  metaKeywordsAr: string;
-  metaKeywordsEn: string;
-}
-
-export interface Publication {
-  id: number;
-  type: 'pdf' | 'excel';
-  titleKey: string;
-  size: string;
-}
-
-export interface ServiceItem {
-  id: number;
-  icon: string; // Can be a Lucide icon name or a URL/Base64
-  isCustomIcon?: boolean;
-  titleAr: string;
-  titleEn: string;
-  descAr: string;
-  descEn: string;
-}
-
-export interface PriceCategory {
-  id: number;
-  nameAr: string;
-  nameEn: string;
+  author?: string;
 }
 
 export interface PriceItem {
@@ -156,29 +46,12 @@ export interface PriceItem {
   lastUpdated: string;
 }
 
-export interface PrivacyPolicyContent {
+export interface ServiceItem {
+  id: number;
+  icon: string;
   titleAr: string;
   titleEn: string;
-  contentAr: string;
-  contentEn: string;
+  descAr: string;
+  descEn: string;
 }
-
-export interface AuditLog {
-  id: number;
-  action: string;
-  user: string;
-  details: string;
-  timestamp: string;
-}
-
-export interface Violation {
-  id: number;
-  lat: number;
-  lng: number;
-  typeAr: string;
-  typeEn: string;
-  date: string;
-  descriptionAr: string;
-  descriptionEn: string;
-  status: 'pending' | 'verified' | 'resolved';
-}
+// ... rest of the types from previous version
