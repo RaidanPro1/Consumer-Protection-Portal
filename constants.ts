@@ -272,8 +272,8 @@ export const INITIAL_STATS: SiteStatistics = {
 export const INITIAL_SETTINGS: SiteSettings = {
   brandNameAr: "حماية المستهلك - تعز",
   brandNameEn: "CPA - Taiz",
-  primaryColor: "#0F4C75",
-  accentColor: "#F39C12",
+  primaryColor: "#0A2647", // New Deep Blue
+  accentColor: "#FFB100", // New Gold
   showStatsOnHome: true,
   animations: { type: 'slide', speed: 0.6, enabled: true },
   logoUrl: DEFAULT_LOGO,
@@ -297,7 +297,7 @@ export const PRICE_CATEGORIES: PriceCategory[] = [
 export const SERVICES_DATA: ServiceItem[] = [
   { id: 1, icon: 'search', titleAr: 'الرصد اليومي', titleEn: 'Daily Monitoring', descAr: 'نتابع تغيرات الأسعار في أسواق تعز لحظة بلحظة.', descEn: 'Tracking price changes in Taiz markets moment by moment.' },
   { id: 2, icon: 'balance', titleAr: 'العدالة السعرية', titleEn: 'Price Justice', descAr: 'نتدخل قانونياً لضبط الأسعار وضمان عدم استغلال المواطن.', descEn: 'Legal intervention to stabilize prices and prevent exploitation.' },
-  { id: 3, icon: 'bullhorn', titleAr: 'التوعية المستمرة', titleEn: 'Continuous Awareness', descAr: 'ننشر حقوقك عبر البروشورات والمنصات الرقمية لتعرف حقك.', descEn: 'Broadcasting your rights across digital platforms.' }
+  { id: 3, icon: 'bullhorn', titleAr: 'التوعية المستمرة', titleEn: 'Continuous Awareness', descAr: 'ننشر حقوقك عبر البروشورات والمنصات الرقمية لتععرف حقك.', descEn: 'Broadcasting your rights across digital platforms.' }
 ];
 
 export const PUBLICATIONS_DATA: Publication[] = [

@@ -97,13 +97,13 @@ const App: React.FC = () => {
         <StatisticsSection stats={stats} />
       )}
       
-      <div className="space-y-4 md:space-y-0">
+      <div className="space-y-0">
         <Services />
         <ViolationsMap />
         <SuccessStoriesSection stories={stories} />
         <NewsSection />
         <PriceList />
-        <div className="py-8 md:py-16 bg-light">
+        <div className="bg-light">
           <ReportForm />
         </div>
         <TestimonialsSection testimonials={testimonials} />

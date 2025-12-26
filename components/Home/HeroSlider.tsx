@@ -12,7 +12,7 @@ const SLIDES = [
     titleEn: 'Price Stability is Our Responsibility',
     subAr: 'نعمل في ميدان تعز لنضمن وصول السلع إليك بالسعر العادل والجودة المطلوبة.',
     subEn: 'We work in Taiz to ensure fair prices and quality products for everyone.',
-    accent: 'border-accent'
+    accent: 'from-accent/20 to-transparent'
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const SLIDES = [
     titleEn: 'Smart Monitoring for a Better Future',
     subAr: 'تكنولوجيا حديثة في خدمة المواطن لتعزيز الشفافية في الأسواق المحلية.',
     subEn: 'Modern technology serving citizens to enhance transparency in local markets.',
-    accent: 'border-secondary'
+    accent: 'from-secondary/20 to-transparent'
   }
 ];
 
@@ -33,7 +33,7 @@ export const HeroSlider: React.FC = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % SLIDES.length);
-    }, 10000);
+    }, 12000);
     return () => clearInterval(timer);
   }, []);
 
@@ -41,48 +41,51 @@ export const HeroSlider: React.FC = () => {
   const prevSlide = () => setCurrentIndex((prev) => (prev === 0 ? SLIDES.length - 1 : prev - 1));
 
   return (
-    <div className="relative h-[70vh] md:h-[85vh] w-full overflow-hidden bg-primary-dark" id="home">
+    <div className="relative h-[75vh] md:h-[90vh] w-full overflow-hidden bg-primary" id="home">
       <AnimatePresence mode='wait'>
         <MotionAny.div
           key={currentIndex}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.2 }}
+          transition={{ duration: 1.5, ease: "easeInOut" }}
           className="absolute inset-0"
         >
           <div className="absolute inset-0 overflow-hidden">
+            {/* Ken Burns Parallax Effect */}
             <MotionAny.div 
-              initial={{ scale: 1.15, x: -10, y: -10 }}
-              animate={{ scale: 1, x: 0, y: 0 }}
-              transition={{ duration: 10, ease: "easeOut" }}
+              initial={{ scale: 1.2, x: 20 }}
+              animate={{ scale: 1.05, x: 0 }}
+              transition={{ duration: 12, ease: "linear" }}
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: `url(${SLIDES[currentIndex].image})` }}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary-dark/90 via-primary-dark/40 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/70 via-transparent to-transparent" />
+            {/* Optimized High-Contrast Overlays */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+            <div className={`absolute inset-0 bg-gradient-to-b ${SLIDES[currentIndex].accent} opacity-30`} />
           </div>
 
           <div className="relative z-10 h-full container mx-auto px-6 md:px-12 flex items-center">
             <div className="max-w-4xl">
               <MotionAny.div
-                initial={{ opacity: 0, x: dir === 'rtl' ? 50 : -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
-                className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white font-black text-[10px] md:text-xs mb-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.8 }}
+                className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-black text-[10px] md:text-xs mb-8 uppercase tracking-widest"
               >
-                <div className="relative flex h-2 w-2">
+                <span className="relative flex h-2.5 w-2.5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
-                </div>
-                <span className="uppercase tracking-[0.2em]">{language === 'ar' ? 'نظام الحماية الذكي' : 'SMART PROTECTION'}</span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
+                </span>
+                {language === 'ar' ? 'نظام الحماية والرقابة الذكية' : 'SMART MONITORING SYSTEM'}
               </MotionAny.div>
 
               <MotionAny.h1 
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-                className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-4 md:mb-6 leading-[1.1]"
+                initial={{ opacity: 0, x: dir === 'rtl' ? 40 : -40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6, duration: 0.8 }}
+                className="text-4xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-[1.05] drop-shadow-xl"
               >
                 {language === 'ar' ? SLIDES[currentIndex].titleAr : SLIDES[currentIndex].titleEn}
               </MotionAny.h1>
@@ -90,30 +93,31 @@ export const HeroSlider: React.FC = () => {
               <MotionAny.p 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.8 }}
-                className="text-base md:text-xl text-gray-200 mb-8 md:mb-10 font-medium leading-relaxed max-w-2xl opacity-90"
+                transition={{ delay: 0.8, duration: 0.8 }}
+                className="text-lg md:text-2xl text-gray-100 mb-10 font-medium leading-relaxed max-w-3xl drop-shadow-md"
               >
                 {language === 'ar' ? SLIDES[currentIndex].subAr : SLIDES[currentIndex].subEn}
               </MotionAny.p>
               
               <MotionAny.div 
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.9, duration: 0.8 }}
-                className="flex gap-4 md:gap-6 flex-wrap"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1, duration: 0.8 }}
+                className="flex gap-4 md:gap-8 flex-wrap"
               >
                 <a 
                   href="#report"
-                  className="group flex items-center gap-3 bg-accent text-white px-8 py-3.5 md:px-10 md:py-4 rounded-2xl font-black text-lg md:text-xl shadow-xl shadow-accent/20 hover:bg-accent-dark transition-all"
+                  className="group relative flex items-center gap-3 bg-accent hover:bg-accent-dark text-white px-10 py-4 md:px-12 md:py-5 rounded-2xl font-black text-lg md:text-xl shadow-2xl shadow-accent/40 transition-all active:scale-95 overflow-hidden"
                 >
-                  <span>{t('cta_report')}</span>
-                  <ArrowUpRight size={20} className="group-hover:rotate-45 transition-transform" />
+                  <span className="relative z-10">{t('cta_report')}</span>
+                  <ArrowUpRight size={24} className="relative z-10 group-hover:rotate-45 transition-transform duration-300" />
+                  <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </a>
                 <a 
                   href="#prices"
-                  className="flex items-center gap-3 px-8 py-3.5 md:px-10 md:py-4 rounded-2xl font-black text-lg md:text-xl text-white bg-white/5 border border-white/20 backdrop-blur-md hover:bg-white hover:text-primary transition-all"
+                  className="flex items-center gap-3 px-10 py-4 md:px-12 md:py-5 rounded-2xl font-black text-lg md:text-xl text-white bg-white/10 border border-white/30 backdrop-blur-lg hover:bg-white hover:text-primary transition-all active:scale-95"
                 >
-                  <PlayCircle size={20} className="opacity-60" />
+                  <PlayCircle size={24} className="opacity-70" />
                   {t('cta_prices')}
                 </a>
               </MotionAny.div>
@@ -122,13 +126,25 @@ export const HeroSlider: React.FC = () => {
         </MotionAny.div>
       </AnimatePresence>
 
-      <div className={`absolute bottom-10 ${dir === 'rtl' ? 'left-8 md:left-12' : 'right-8 md:right-12'} flex items-center gap-4 md:gap-6 z-30`}>
-        <div className="flex gap-2">
-          <button onClick={prevSlide} className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center backdrop-blur-xl hover:bg-accent transition-all">
-            <ChevronRight size={20} />
+      {/* Modern Slide Indicators */}
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 flex gap-3">
+        {SLIDES.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => setCurrentIndex(idx)}
+            className={`h-1.5 transition-all duration-500 rounded-full ${currentIndex === idx ? 'w-12 bg-accent' : 'w-4 bg-white/30 hover:bg-white/50'}`}
+          />
+        ))}
+      </div>
+
+      {/* Navigation Controls */}
+      <div className={`absolute bottom-10 ${dir === 'rtl' ? 'left-8 md:left-12' : 'right-8 md:right-12'} flex items-center gap-4 z-30`}>
+        <div className="flex gap-3">
+          <button onClick={prevSlide} className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/10 border border-white/20 text-white flex items-center justify-center backdrop-blur-xl hover:bg-accent hover:border-accent transition-all">
+            <ChevronRight size={24} />
           </button>
-          <button onClick={next} className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/5 border border-white/10 text-white flex items-center justify-center backdrop-blur-xl hover:bg-accent transition-all">
-            <ChevronLeft size={20} />
+          <button onClick={next} className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-white/10 border border-white/20 text-white flex items-center justify-center backdrop-blur-xl hover:bg-accent hover:border-accent transition-all">
+            <ChevronLeft size={24} />
           </button>
         </div>
       </div>

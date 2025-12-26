@@ -1,79 +1,171 @@
 
 import React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { Mail, MapPin, Phone, Facebook, Twitter, Instagram, ShieldCheck, Shield } from 'lucide-react';
+// Added 'Search' to the lucide-react imports
+import { Mail, MapPin, Phone, Facebook, Twitter, Instagram, ShieldCheck, Shield, ExternalLink, ArrowUpRight, Search } from 'lucide-react';
 
 interface FooterProps {
   logoUrl?: string;
 }
 
 export const Footer: React.FC<FooterProps> = ({ logoUrl }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  const quickLinks = [
+    { key: 'about', href: '#about' },
+    { key: 'jobs', href: '#jobs' },
+    { key: 'volunteering', href: '#volunteering' },
+    { key: 'donations', href: '#donations' },
+    { key: 'privacy', href: '#privacy' },
+  ];
 
   return (
-    <footer className="bg-primary text-white pt-16 pb-8 px-6 md:px-16 border-t-4 border-accent">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-        <div className="col-span-1 md:col-span-1">
-          <div className="flex items-center gap-3 mb-6">
-            {logoUrl ? (
-              <img src={logoUrl} alt="Logo" className="h-10 w-auto object-contain" />
-            ) : (
-              <Shield className="text-accent" size={32} />
-            )}
-            <h3 className="text-2xl font-bold text-accent">{t('brandName')}</h3>
+    <footer className="bg-primary text-white font-cairo overflow-hidden">
+      {/* Upper Footer: Branding & Call to Action */}
+      <div className="border-b border-white/5 bg-primary-dark/30 py-16 px-6 md:px-16">
+        <div className="container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-4">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="p-3 bg-white rounded-2xl shadow-glow">
+                {logoUrl ? (
+                  <img src={logoUrl} alt="Logo" className="h-10 w-auto object-contain" />
+                ) : (
+                  <Shield className="text-primary" size={32} />
+                )}
+              </div>
+              <h3 className="text-3xl font-black text-white">{t('brandName')}</h3>
+            </div>
+            <p className="text-gray-400 text-lg leading-relaxed font-medium">
+              نعمل بشراكة مجتمعية واسعة لحماية حقوقك كمستهلك وضمان استقرار الأسواق في محافظة تعز.
+            </p>
           </div>
-          <p className="text-gray-300 leading-relaxed mb-6">
-            {t('footer_desc')}
-          </p>
-          <div className="flex gap-4">
-            <a href="#" className="bg-white/10 p-2 rounded-full hover:bg-accent hover:text-white transition-colors"><Facebook size={20} /></a>
-            <a href="#" className="bg-white/10 p-2 rounded-full hover:bg-accent hover:text-white transition-colors"><Twitter size={20} /></a>
-            <a href="#" className="bg-white/10 p-2 rounded-full hover:bg-accent hover:text-white transition-colors"><Instagram size={20} /></a>
+
+          <div className="lg:col-span-8 flex flex-col md:flex-row gap-6 justify-end">
+            <div className="bg-white/5 backdrop-blur-sm p-6 rounded-[2rem] border border-white/10 flex-1 flex items-center justify-between group cursor-pointer hover:bg-accent transition-all duration-500">
+               <div>
+                 <h4 className="font-black text-lg mb-1">{language === 'ar' ? 'هل رصدت مخالفة؟' : 'Saw a violation?'}</h4>
+                 <p className="text-sm opacity-60">{language === 'ar' ? 'بلغ الآن وحافظ على حقك' : 'Report now and save your rights'}</p>
+               </div>
+               <a href="#report" className="w-12 h-12 bg-white text-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                 <ArrowUpRight size={24} />
+               </a>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm p-6 rounded-[2rem] border border-white/10 flex-1 flex items-center justify-between group cursor-pointer hover:bg-secondary transition-all duration-500">
+               <div>
+                 <h4 className="font-black text-lg mb-1">{language === 'ar' ? 'دليل الأسعار' : 'Price Guide'}</h4>
+                 <p className="text-sm opacity-60">{language === 'ar' ? 'تأكد من السعر العادل' : 'Verify the fair price'}</p>
+               </div>
+               <a href="#prices" className="w-12 h-12 bg-white text-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                 <Search size={24} />
+               </a>
+            </div>
           </div>
-        </div>
-
-        <div>
-          <h3 className="text-2xl font-bold text-accent mb-6">{t('home')}</h3>
-          <ul className="space-y-3">
-            <li><a href="#about" className="text-gray-300 hover:text-accent transition-colors hover:pe-2">{t('about')}</a></li>
-            <li><a href="#jobs" className="text-gray-300 hover:text-accent transition-colors hover:pe-2">{t('jobs')}</a></li>
-            <li><a href="#volunteering" className="text-gray-300 hover:text-accent transition-colors hover:pe-2">{t('volunteering')}</a></li>
-            <li><a href="#donations" className="text-gray-300 hover:text-accent transition-colors hover:pe-2">{t('donations')}</a></li>
-            <li><a href="#privacy" className="text-accent font-bold hover:underline flex items-center gap-2"><ShieldCheck size={18}/> {t('privacy')}</a></li>
-            <li><a href="#admin" className="text-gray-300 hover:text-accent transition-colors hover:pe-2">{t('admin')}</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="text-2xl font-bold text-accent mb-6">{t('footer_contact')}</h3>
-          <ul className="space-y-4">
-            <li className="flex items-center gap-3 text-gray-300">
-              <Mail className="text-accent" size={20} />
-              <span>info@cpa-ye.org</span>
-            </li>
-            <li className="flex items-center gap-3 text-gray-300">
-              <MapPin className="text-accent" size={20} />
-              <span>Taiz, Republic of Yemen</span>
-            </li>
-            <li className="flex items-center gap-3 text-gray-300">
-              <Phone className="text-accent" size={20} />
-              <span>+967 4 123 456</span>
-            </li>
-          </ul>
-        </div>
-
-        <div>
-           <h3 className="text-2xl font-bold text-accent mb-6">شارك برأيك</h3>
-           <p className="text-gray-300 text-sm mb-4">آراءكم تهمنا لتحسين الخدمات الرقابية في المحافظة.</p>
-           <a href="#report" className="block text-center bg-accent text-white font-bold py-3 rounded-xl shadow-lg hover:scale-105 transition-all">بلغ الآن</a>
         </div>
       </div>
 
-      <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-400 text-sm gap-4">
-        <p>{t('rights')}</p>
-        <p className="font-bold">
-          Powered by <a href="https://raidan.pro" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Raidan Pro</a>
-        </p>
+      {/* Main Footer Content */}
+      <div className="py-16 px-6 md:px-16 container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+          {/* Quick Nav */}
+          <div>
+            <h4 className="text-accent font-black text-xl mb-8 flex items-center gap-2">
+              <span className="w-2 h-6 bg-accent rounded-full inline-block"></span>
+              روابط تهمك
+            </h4>
+            <ul className="space-y-4">
+              {quickLinks.map((link) => (
+                <li key={link.key}>
+                  <a href={link.href} className="text-gray-400 hover:text-white flex items-center gap-2 transition-colors font-bold group">
+                    <span className="w-1 h-1 bg-white/20 rounded-full group-hover:bg-accent transition-all group-hover:w-4"></span>
+                    {t(link.key)}
+                  </a>
+                </li>
+              ))}
+              <li><a href="#admin" className="text-white/30 hover:text-white transition-colors text-xs font-black uppercase tracking-widest">{t('admin')}</a></li>
+            </ul>
+          </div>
+
+          {/* Contact Details */}
+          <div>
+            <h4 className="text-accent font-black text-xl mb-8 flex items-center gap-2">
+              <span className="w-2 h-6 bg-accent rounded-full inline-block"></span>
+              قنوات التواصل
+            </h4>
+            <ul className="space-y-6">
+              <li className="flex gap-4">
+                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-accent"><Mail size={20} /></div>
+                <div>
+                  <p className="text-xs text-white/40 font-black uppercase">البريد الإلكتروني</p>
+                  <a href="mailto:info@cpa-ye.org" className="text-lg font-bold hover:text-accent transition-colors">info@cpa-ye.org</a>
+                </div>
+              </li>
+              <li className="flex gap-4">
+                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-accent"><Phone size={20} /></div>
+                <div>
+                  <p className="text-xs text-white/40 font-black uppercase">الخط الساخن</p>
+                  <a href="tel:+9674123456" className="text-lg font-bold hover:text-accent transition-colors">+967 4 123 456</a>
+                </div>
+              </li>
+              <li className="flex gap-4">
+                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-accent"><MapPin size={20} /></div>
+                <div>
+                  <p className="text-xs text-white/40 font-black uppercase">المقر الرئيسي</p>
+                  <p className="text-base font-bold">تعز، الجمهورية اليمنية</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          {/* Social & Follow */}
+          <div>
+            <h4 className="text-accent font-black text-xl mb-8 flex items-center gap-2">
+              <span className="w-2 h-6 bg-accent rounded-full inline-block"></span>
+              تابعنا على المنصات
+            </h4>
+            <p className="text-gray-400 mb-6 font-medium">كن أول من يعرف بآخر الحملات الرقابية وأخبار السوق.</p>
+            <div className="flex gap-4">
+              <a href="#" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-blue-600 hover:scale-110 transition-all border border-white/10"><Facebook size={20} /></a>
+              <a href="#" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-sky-500 hover:scale-110 transition-all border border-white/10"><Twitter size={20} /></a>
+              <a href="#" className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-gradient-to-tr from-yellow-500 to-purple-600 hover:scale-110 transition-all border border-white/10"><Instagram size={20} /></a>
+            </div>
+          </div>
+
+          {/* Partnership & Security */}
+          <div>
+            <h4 className="text-accent font-black text-xl mb-8 flex items-center gap-2">
+              <span className="w-2 h-6 bg-accent rounded-full inline-block"></span>
+              التوثيق والأمان
+            </h4>
+            <div className="bg-white/5 p-6 rounded-3xl border border-white/10 space-y-4">
+              <div className="flex items-center gap-3">
+                <ShieldCheck className="text-emerald-500" size={24} />
+                <span className="text-sm font-black uppercase tracking-wider">نظام بلاغات مشفر</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Shield className="text-accent" size={24} />
+                <span className="text-sm font-black uppercase tracking-wider">مرخص رسمياً</span>
+              </div>
+              <div className="pt-4 mt-4 border-t border-white/5">
+                <p className="text-[10px] text-white/30 font-black mb-2 tracking-widest uppercase">شريك التكنولوجيا</p>
+                <a href="https://raidan.pro" target="_blank" className="flex items-center gap-2 text-white hover:text-accent transition-colors font-black">
+                   RAIDAN PRO <ExternalLink size={14} />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer Bottom Bar */}
+      <div className="bg-primary-dark/50 py-8 px-6 md:px-16">
+        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/40 font-bold">
+          <p>جميع الحقوق محفوظة لجمعية حماية المستهلك - تعز © 2026</p>
+          <div className="flex gap-8">
+            <a href="#privacy" className="hover:text-white transition-colors">اتفاقية الاستخدام</a>
+            <a href="#about" className="hover:text-white transition-colors">من نحن</a>
+            <a href="mailto:it@cpa-ye.org" className="hover:text-white transition-colors">الإبلاغ عن خلل تقني</a>
+          </div>
+        </div>
       </div>
     </footer>
   );

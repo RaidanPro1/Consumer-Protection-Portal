@@ -17,69 +17,66 @@
           extend: {
             colors: {
               primary: {
-                DEFAULT: '#0F4C75',
-                light: '#1B6CA8',
-                dark: '#0B3D5E',
+                DEFAULT: '#041527',
+                light: '#0A2647',
+                dark: '#010811',
               },
-              secondary: '#3282B8',
+              secondary: {
+                DEFAULT: '#1D4ED8',
+                light: '#3B82F6',
+              },
               accent: {
-                DEFAULT: '#F39C12',
-                light: '#F5B041',
-                dark: '#D68910',
+                DEFAULT: '#C2410C',
+                light: '#F97316',
+                dark: '#9A3412',
               },
-              dark: '#1B262C',
-              light: '#f8fafc',
+              dark: '#020617',
+              light: '#F1F5F9', // Slightly darker than before to reduce glare
+              surface: '#FFFFFF',
+              muted: '#334155',
             },
             fontFamily: {
               cairo: ['Cairo', 'sans-serif'],
             },
             boxShadow: {
-              'soft': '0 10px 30px -5px rgba(0, 0, 0, 0.05)',
-              'elegant': '0 20px 50px -10px rgba(15, 76, 117, 0.15)',
+              'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07)',
+              'elegant': '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
+              'glow': '0 0 20px rgba(194, 65, 12, 0.3)',
             }
           },
         },
       }
     </script>
     <style>
-      * {
-        font-family: 'Cairo', sans-serif !important;
-      }
+      * { font-family: 'Cairo', sans-serif !important; }
       body {
-        font-family: 'Cairo', sans-serif;
-        scroll-behavior: smooth;
-        overflow-x: hidden;
+        background-color: #F1F5F9;
+        color: #020617;
+        line-height: 1.6;
       }
-      /* Custom scrollbar for Webkit */
-      ::-webkit-scrollbar {
-        width: 6px;
+      .section-gradient-light {
+        background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%);
       }
-      ::-webkit-scrollbar-track {
-        background: #f1f5f9;
+      .section-gradient-dark {
+        background: linear-gradient(180deg, #041527 0%, #010811 100%);
       }
-      ::-webkit-scrollbar-thumb {
-        background: #3282B8;
-        border-radius: 10px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #0F4C75;
-      }
-      #reader__scan_region video {
-        border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        object-fit: cover !important;
+      .bg-pattern {
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23041527' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
       }
       .glass-nav {
-        background: rgba(255, 255, 255, 0.85);
+        background: rgba(255, 255, 255, 0.9);
         backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(0,0,0,0.05);
       }
-      .ken-burns {
-        animation: kenburns 20s infinite alternate;
+      .section-spacing {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
       }
-      @keyframes kenburns {
-        from { transform: scale(1); }
-        to { transform: scale(1.1); }
+      @media (min-width: 768px) {
+        .section-spacing {
+          padding-top: 8rem;
+          padding-bottom: 8rem;
+        }
       }
     </style>
   <script type="importmap">
@@ -95,7 +92,7 @@
 }
 </script>
 </head>
-  <body class="bg-light text-dark selection:bg-primary/20 font-cairo">
+  <body class="bg-light text-dark selection:bg-accent selection:text-white font-cairo">
     <div id="root"></div>
   </body>
 </html>

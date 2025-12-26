@@ -1,8 +1,7 @@
 
-import { NEWS_DATA, MOCK_PRICES, INITIAL_SETTINGS } from '../constants';
-import { NewsItem, PriceItem, SiteSettings, User } from '../types';
+import { NEWS_DATA, MOCK_PRICES, INITIAL_SETTINGS, MOCK_VIOLATIONS } from '../constants';
+import { NewsItem, PriceItem, SiteSettings, Violation } from '../types';
 
-// Mocking backend delay and storage
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const apiService = {
@@ -17,9 +16,31 @@ export const apiService = {
     return NEWS_DATA;
   },
 
-  saveNews: async (item: Partial<NewsItem>) => {
-    console.log("Saving news to MongoDB...", item);
-    await sleep(1000);
+  // Map CMS
+  getViolations: async (): Promise<Violation[]> => {
+    const saved = localStorage.getItem('map_violations');
+    if (saved) return JSON.parse(saved);
+    return MOCK_VIOLATIONS;
+  },
+
+  saveViolation: async (violation: Violation) => {
+    const current = await apiService.getViolations();
+    const index = current.findIndex(v => v.id === violation.id);
+    if (index > -1) {
+      current[index] = violation;
+    } else {
+      current.push({ ...violation, id: Date.now() });
+    }
+    localStorage.setItem('map_violations', JSON.stringify(current));
+    await sleep(600);
+    return true;
+  },
+
+  deleteViolation: async (id: number) => {
+    const current = await apiService.getViolations();
+    const filtered = current.filter(v => v.id !== id);
+    localStorage.setItem('map_violations', JSON.stringify(filtered));
+    await sleep(500);
     return true;
   },
 
@@ -32,16 +53,7 @@ export const apiService = {
   // Site Configuration
   getSettings: async (): Promise<SiteSettings> => {
     const saved = localStorage.getItem('site_settings');
-    return saved ? JSON.parse(saved) : {
-      brandNameAr: "حماية المستهلك - تعز",
-      brandNameEn: "CPA - Taiz",
-      logoUrl: "https://i.ibb.co/VpMTT0M6/logo.png",
-      primaryColor: "#0F4C75",
-      accentColor: "#F39C12",
-      showStatsOnHome: true,
-      metaKeywordsAr: "تعز, حماية المستهلك",
-      metaKeywordsEn: "Taiz, Consumer Protection"
-    };
+    return saved ? JSON.parse(saved) : INITIAL_SETTINGS;
   },
 
   updateSettings: async (settings: SiteSettings) => {
