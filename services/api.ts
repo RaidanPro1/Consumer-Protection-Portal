@@ -1,6 +1,6 @@
 
-import { NEWS_DATA, MOCK_PRICES, INITIAL_SETTINGS, MOCK_VIOLATIONS } from '../constants';
-import { NewsItem, PriceItem, SiteSettings, Violation } from '../types';
+import { NEWS_DATA, MOCK_PRICES, INITIAL_SETTINGS, MOCK_VIOLATIONS, SERVICES_DATA } from '../constants';
+import { NewsItem, PriceItem, SiteSettings, Violation, ServiceItem } from '../types';
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -48,6 +48,23 @@ export const apiService = {
   getPrices: async (): Promise<PriceItem[]> => {
     await sleep(500);
     return MOCK_PRICES;
+  },
+
+  // Services CMS
+  getServices: async (): Promise<ServiceItem[]> => {
+    const saved = localStorage.getItem('site_services');
+    return saved ? JSON.parse(saved) : SERVICES_DATA;
+  },
+
+  updateService: async (service: ServiceItem) => {
+    const current = await apiService.getServices();
+    const index = current.findIndex(s => s.id === service.id);
+    if (index > -1) {
+      current[index] = service;
+    }
+    localStorage.setItem('site_services', JSON.stringify(current));
+    await sleep(500);
+    return true;
   },
 
   // Site Configuration

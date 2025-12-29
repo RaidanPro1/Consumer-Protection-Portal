@@ -32,6 +32,22 @@ import {
   TESTIMONIALS 
 } from './constants';
 
+/**
+ * PageWrapper component moved outside of App to fix children prop inference errors
+ * and prevent the component from being re-defined on every App render cycle.
+ */
+const PageWrapper: React.FC<{ children: React.ReactNode; logoUrl: string }> = ({ children, logoUrl }) => (
+  <LanguageProvider>
+    <div className="min-h-screen flex flex-col font-cairo overflow-x-hidden">
+      <Navbar logoUrl={logoUrl} />
+      <main className="flex-grow">
+        {children}
+      </main>
+      <Footer logoUrl={logoUrl} />
+    </div>
+  </LanguageProvider>
+);
+
 const App: React.FC = () => {
   const [route, setRoute] = useState(window.location.hash || '#home');
   const [jobs] = useState(JOB_LISTINGS);
@@ -69,27 +85,16 @@ const App: React.FC = () => {
     );
   }
 
-  const PageWrapper = ({ children }: { children: React.ReactNode }) => (
-    <LanguageProvider>
-      <div className="min-h-screen flex flex-col font-cairo overflow-x-hidden">
-        <Navbar logoUrl={settings.logoUrl} />
-        <main className="flex-grow">
-          {children}
-        </main>
-        <Footer logoUrl={settings.logoUrl} />
-      </div>
-    </LanguageProvider>
-  );
-
-  if (route === '#privacy') return <PageWrapper><PrivacyPolicy /></PageWrapper>;
-  if (route === '#about') return <PageWrapper><AboutUs /></PageWrapper>;
-  if (route === '#team') return <PageWrapper><Team /></PageWrapper>;
-  if (route === '#jobs') return <PageWrapper><Jobs jobs={jobs} /></PageWrapper>;
-  if (route === '#volunteering') return <PageWrapper><Volunteering content={volContent} /></PageWrapper>;
-  if (route === '#donations') return <PageWrapper><Donations methods={donationMethods} /></PageWrapper>;
+  // Handle routing with the optimized PageWrapper
+  if (route === '#privacy') return <PageWrapper logoUrl={settings.logoUrl}><PrivacyPolicy /></PageWrapper>;
+  if (route === '#about') return <PageWrapper logoUrl={settings.logoUrl}><AboutUs /></PageWrapper>;
+  if (route === '#team') return <PageWrapper logoUrl={settings.logoUrl}><Team /></PageWrapper>;
+  if (route === '#jobs') return <PageWrapper logoUrl={settings.logoUrl}><Jobs jobs={jobs} /></PageWrapper>;
+  if (route === '#volunteering') return <PageWrapper logoUrl={settings.logoUrl}><Volunteering content={volContent} /></PageWrapper>;
+  if (route === '#donations') return <PageWrapper logoUrl={settings.logoUrl}><Donations methods={donationMethods} /></PageWrapper>;
 
   return (
-    <PageWrapper>
+    <PageWrapper logoUrl={settings.logoUrl}>
       <NewsTicker />
       <HeroSlider />
       

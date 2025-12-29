@@ -20,6 +20,7 @@ export interface SiteSettings {
   brandNameAr: string;
   brandNameEn: string;
   logoUrl: string;
+  sidebarBgUrl?: string; // New field for sidebar personalization
   primaryColor: string;
   accentColor: string;
   showStatsOnHome: boolean;
@@ -59,6 +60,7 @@ export interface PriceItem {
 export interface ServiceItem {
   id: number;
   icon: string;
+  iconUrl?: string; // New field for custom uploaded icons
   titleAr: string;
   titleEn: string;
   descAr: string;

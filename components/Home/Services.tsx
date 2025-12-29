@@ -1,9 +1,10 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { SERVICES_DATA } from '../../constants';
-import { Search, Scale, Megaphone, ArrowLeft } from 'lucide-react';
+import { apiService } from '../../services/api';
+import { Search, Scale, Megaphone, ArrowLeft, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { ServiceItem } from '../../types';
 
 const iconMap: any = {
   search: Search,
@@ -13,7 +14,16 @@ const iconMap: any = {
 
 export const Services: React.FC = () => {
   const { t, language, dir } = useLanguage();
+  const [services, setServices] = useState<ServiceItem[]>([]);
   const motionAny = motion as any;
+
+  useEffect(() => {
+    const load = async () => {
+      const data = await apiService.getServices();
+      setServices(data);
+    };
+    load();
+  }, []);
 
   return (
     <section className="section-spacing px-4 md:px-8 bg-pattern bg-light relative overflow-hidden border-y border-gray-200/50">
@@ -30,11 +40,11 @@ export const Services: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
-          {SERVICES_DATA.map((service, index) => {
-            const IconComponent = iconMap[service.icon];
+          {services.map((service, index) => {
+            const IconComponent = iconMap[service.icon] || Globe;
             return (
               <motionAny.div
-                key={index}
+                key={service.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -43,8 +53,12 @@ export const Services: React.FC = () => {
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[4rem] -mr-10 -mt-10 group-hover:bg-accent/10 transition-colors" />
                 
-                <div className="w-16 h-16 md:w-20 md:h-20 bg-primary/5 rounded-3xl flex items-center justify-center mb-8 group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                  <IconComponent className="w-8 h-8 md:w-10 md:h-10 text-primary group-hover:text-white transition-colors" />
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-primary/5 rounded-3xl flex items-center justify-center mb-8 group-hover:bg-primary group-hover:text-white transition-all duration-500 overflow-hidden">
+                  {service.isCustomIcon && service.iconUrl ? (
+                    <img src={service.iconUrl} className="w-full h-full object-cover" alt="service icon" />
+                  ) : (
+                    <IconComponent className="w-8 h-8 md:w-10 md:h-10 text-primary group-hover:text-white transition-colors" />
+                  )}
                 </div>
                 
                 <h3 className="text-2xl md:text-3xl font-black text-primary mb-4 group-hover:text-accent transition-colors">
