@@ -1,14 +1,15 @@
 
 import React, { useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { Shield, Menu, X, Globe, User, AlertCircle } from 'lucide-react';
+import { Shield, Menu, X, Globe, User, AlertCircle, Scan } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface NavbarProps {
   logoUrl?: string;
+  onOpenScanner?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ logoUrl }) => {
+export const Navbar: React.FC<NavbarProps> = ({ logoUrl, onOpenScanner }) => {
   const { t, toggleLanguage, language, dir } = useLanguage();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const MotionAny = motion as any;
@@ -63,7 +64,15 @@ export const Navbar: React.FC<NavbarProps> = ({ logoUrl }) => {
           </ul>
           
           <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'pe-3 border-e' : 'ps-3 border-s'} border-gray-200`}>
-             <MotionAny.a
+            <button 
+              onClick={onOpenScanner}
+              className="p-2.5 bg-gray-50 text-primary hover:text-accent hover:bg-accent/5 rounded-xl transition-all border border-gray-100"
+              title={t('scan_barcode')}
+            >
+              <Scan size={18} />
+            </button>
+
+            <MotionAny.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               animate={{ boxShadow: ["0px 0px 0px rgba(194, 65, 12, 0)", "0px 0px 15px rgba(194, 65, 12, 0.4)", "0px 0px 0px rgba(194, 65, 12, 0)"] }}
@@ -121,6 +130,13 @@ export const Navbar: React.FC<NavbarProps> = ({ logoUrl }) => {
               ))}
             </ul>
             <div className="flex flex-col gap-2 pt-4 border-t border-gray-100">
+              <button 
+                onClick={() => { onOpenScanner?.(); setIsMenuOpen(false); }}
+                className="w-full flex justify-center items-center gap-2 bg-primary text-white py-4 rounded-xl font-black text-base shadow-lg"
+              >
+                <Scan size={20} />
+                {t('scan_barcode')}
+              </button>
               <a 
                 href="#report" 
                 className="block text-center bg-accent text-white py-4 rounded-xl font-black text-base shadow-lg"

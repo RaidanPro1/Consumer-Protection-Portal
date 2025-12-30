@@ -7,13 +7,35 @@ const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 export const apiService = {
   // News CMS
   getLatestNews: async (): Promise<NewsItem[]> => {
-    await sleep(800);
-    return [...NEWS_DATA].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 3);
+    const news = await apiService.getAllNews();
+    return news.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 3);
   },
   
   getAllNews: async (): Promise<NewsItem[]> => {
-    await sleep(500);
+    const saved = localStorage.getItem('site_news');
+    if (saved) return JSON.parse(saved);
     return NEWS_DATA;
+  },
+
+  saveNews: async (newsItem: NewsItem) => {
+    const current = await apiService.getAllNews();
+    const index = current.findIndex(n => n.id === newsItem.id);
+    if (index > -1) {
+      current[index] = { ...current[index], ...newsItem };
+    } else {
+      current.push({ ...newsItem, id: Date.now() });
+    }
+    localStorage.setItem('site_news', JSON.stringify(current));
+    await sleep(600);
+    return true;
+  },
+
+  deleteNews: async (id: number) => {
+    const current = await apiService.getAllNews();
+    const filtered = current.filter(n => n.id !== id);
+    localStorage.setItem('site_news', JSON.stringify(filtered));
+    await sleep(500);
+    return true;
   },
 
   // Map CMS

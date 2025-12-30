@@ -23,6 +23,8 @@ import { SuccessStoriesSection } from './components/Home/SuccessStoriesSection';
 import { TestimonialsSection } from './components/Home/TestimonialsSection';
 import { ViolationsMap } from './components/Home/ViolationsMap';
 import { AIAssistant } from './components/Home/AIAssistant';
+import { BarcodeScanner } from './components/Home/BarcodeScanner';
+import { AnimatePresence } from 'framer-motion';
 import { 
   JOB_LISTINGS, 
   VOLUNTEER_DATA, 
@@ -37,10 +39,10 @@ import {
  * PageWrapper component moved outside of App to fix children prop inference errors
  * and prevent the component from being re-defined on every App render cycle.
  */
-const PageWrapper: React.FC<{ children: React.ReactNode; logoUrl: string }> = ({ children, logoUrl }) => (
+const PageWrapper: React.FC<{ children: React.ReactNode; logoUrl: string; onOpenScanner: () => void }> = ({ children, logoUrl, onOpenScanner }) => (
   <LanguageProvider>
     <div className="min-h-screen flex flex-col font-cairo overflow-x-hidden">
-      <Navbar logoUrl={logoUrl} />
+      <Navbar logoUrl={logoUrl} onOpenScanner={onOpenScanner} />
       <main className="flex-grow">
         {children}
       </main>
@@ -59,6 +61,7 @@ const App: React.FC = () => {
   const [settings] = useState(INITIAL_SETTINGS);
   const [stories] = useState(SUCCESS_STORIES);
   const [testimonials] = useState(TESTIMONIALS);
+  const [isScannerOpen, setIsScannerOpen] = useState(false);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -79,6 +82,8 @@ const App: React.FC = () => {
     link.href = settings.logoUrl;
   }, [settings.logoUrl]);
 
+  const toggleScanner = () => setIsScannerOpen(!isScannerOpen);
+
   if (route === '#admin') {
     return (
       <LanguageProvider>
@@ -88,37 +93,50 @@ const App: React.FC = () => {
     );
   }
 
-  // Handle routing with the optimized PageWrapper
-  if (route === '#privacy') return <PageWrapper logoUrl={settings.logoUrl}><PrivacyPolicy /></PageWrapper>;
-  if (route === '#about') return <PageWrapper logoUrl={settings.logoUrl}><AboutUs /></PageWrapper>;
-  if (route === '#team') return <PageWrapper logoUrl={settings.logoUrl}><Team /></PageWrapper>;
-  if (route === '#jobs') return <PageWrapper logoUrl={settings.logoUrl}><Jobs jobs={jobs} /></PageWrapper>;
-  if (route === '#volunteering') return <PageWrapper logoUrl={settings.logoUrl}><Volunteering content={volContent} /></PageWrapper>;
-  if (route === '#donations') return <PageWrapper logoUrl={settings.logoUrl}><Donations methods={donationMethods} /></PageWrapper>;
+  // Common PageWrapper props
+  const wrapperProps = {
+    logoUrl: settings.logoUrl,
+    onOpenScanner: toggleScanner
+  };
 
   return (
-    <PageWrapper logoUrl={settings.logoUrl}>
-      <NewsTicker />
-      <HeroSlider />
+    <>
+      {route === '#privacy' && <PageWrapper {...wrapperProps}><PrivacyPolicy /></PageWrapper>}
+      {route === '#about' && <PageWrapper {...wrapperProps}><AboutUs /></PageWrapper>}
+      {route === '#team' && <PageWrapper {...wrapperProps}><Team /></PageWrapper>}
+      {route === '#jobs' && <PageWrapper {...wrapperProps}><Jobs jobs={jobs} /></PageWrapper>}
+      {route === '#volunteering' && <PageWrapper {...wrapperProps}><Volunteering content={volContent} /></PageWrapper>}
+      {route === '#donations' && <PageWrapper {...wrapperProps}><Donations methods={donationMethods} /></PageWrapper>}
       
-      {settings.showStatsOnHome && (
-        <StatisticsSection stats={stats} />
+      {route === '#home' && (
+        <PageWrapper {...wrapperProps}>
+          <NewsTicker />
+          <HeroSlider />
+          
+          {settings.showStatsOnHome && (
+            <StatisticsSection stats={stats} />
+          )}
+          
+          <div className="space-y-0">
+            <Services />
+            <ViolationsMap />
+            <SuccessStoriesSection stories={stories} />
+            <NewsSection />
+            <PriceList />
+            <div className="bg-light">
+              <ReportForm />
+            </div>
+            <TestimonialsSection testimonials={testimonials} />
+            <Gallery />
+            <Publications />
+          </div>
+        </PageWrapper>
       )}
-      
-      <div className="space-y-0">
-        <Services />
-        <ViolationsMap />
-        <SuccessStoriesSection stories={stories} />
-        <NewsSection />
-        <PriceList />
-        <div className="bg-light">
-          <ReportForm />
-        </div>
-        <TestimonialsSection testimonials={testimonials} />
-        <Gallery />
-        <Publications />
-      </div>
-    </PageWrapper>
+
+      <AnimatePresence>
+        {isScannerOpen && <BarcodeScanner onClose={toggleScanner} />}
+      </AnimatePresence>
+    </>
   );
 };
 
