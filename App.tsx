@@ -22,6 +22,7 @@ import { StatisticsSection } from './components/Home/StatisticsSection';
 import { SuccessStoriesSection } from './components/Home/SuccessStoriesSection';
 import { TestimonialsSection } from './components/Home/TestimonialsSection';
 import { ViolationsMap } from './components/Home/ViolationsMap';
+import { AIAssistant } from './components/Home/AIAssistant';
 import { 
   JOB_LISTINGS, 
   VOLUNTEER_DATA, 
@@ -44,6 +45,7 @@ const PageWrapper: React.FC<{ children: React.ReactNode; logoUrl: string }> = ({
         {children}
       </main>
       <Footer logoUrl={logoUrl} />
+      <AIAssistant />
     </div>
   </LanguageProvider>
 );
@@ -81,6 +83,7 @@ const App: React.FC = () => {
     return (
       <LanguageProvider>
         <AdminDashboard />
+        <AIAssistant />
       </LanguageProvider>
     );
   }

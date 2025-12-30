@@ -80,7 +80,10 @@ export const TRANSLATIONS: TranslationDictionary = {
     filter_date: "تاريخ الرصد",
     price_min: "أقل سعر",
     price_max: "أعلى سعر",
-    suggestions_title: "سلع قد تبحث عنها"
+    suggestions_title: "سلع قد تبحث عنها",
+    ai_assistant_title: "المساعد الذكي",
+    ai_assistant_placeholder: "اسأل عن أسعار السلع أو حقوقك...",
+    ai_assistant_welcome: "مرحباً بك! أنا مساعدك الذكي في جمعية حماية المستهلك - تعز. كيف يمكنني مساعدتك اليوم؟",
   },
   en: {
     brandName: "CPA - Taiz",
@@ -140,7 +143,10 @@ export const TRANSLATIONS: TranslationDictionary = {
     filter_date: "Date",
     price_min: "Min Price",
     price_max: "Max Price",
-    suggestions_title: "Suggested Items"
+    suggestions_title: "Suggested Items",
+    ai_assistant_title: "Smart Assistant",
+    ai_assistant_placeholder: "Ask about prices or your rights...",
+    ai_assistant_welcome: "Welcome! I am your AI Assistant for the Consumer Protection Association - Taiz. How can I help you today?",
   }
 };
 

@@ -1,0 +1,29 @@
+
+{
+  "short_name": "CPA-Taiz",
+  "name": "Consumer Protection Portal - Taiz",
+  "icons": [
+    {
+      "src": "https://i.ibb.co/VpMTT0M6/logo.png",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.ibb.co/VpMTT0M6/logo.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://i.ibb.co/VpMTT0M6/logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#041527",
+  "background_color": "#F1F5F9",
+  "dir": "rtl",
+  "lang": "ar"
+}
